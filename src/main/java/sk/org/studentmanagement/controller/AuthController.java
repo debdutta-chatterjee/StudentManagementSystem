@@ -12,6 +12,8 @@ import sk.org.studentmanagement.dto.UserDto;
 import sk.org.studentmanagement.entity.User;
 import sk.org.studentmanagement.service.UserService;
 
+import java.util.List;
+
 @Controller
 @AllArgsConstructor
 public class AuthController
@@ -53,6 +55,20 @@ public class AuthController
 
         userService.saveUser(userDto);
         return  "redirect:/registerUser?success";
+    }
+
+    @GetMapping("/registeredUsers")
+    public String users(Model model)
+    {
+        List<UserDto> userDtos = userService.findAllUsers();
+        model.addAttribute("users",userDtos);
+        return "registered-users";
+    }
+
+    @GetMapping("/login")
+    public String login()
+    {
+        return "login";
     }
 }
 
